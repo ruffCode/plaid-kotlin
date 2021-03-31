@@ -1,9 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `java-library`
-    `maven-publish`
-    signing
+
     id("org.jetbrains.kotlin.jvm") version "1.5.0-M2"
     kotlin("plugin.serialization") version "1.5.0-M2"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
@@ -12,7 +10,11 @@ plugins {
     id("org.jetbrains.dokka") version "1.4.30"
     id("com.novoda.static-analysis") version "1.2"
     id("com.diffplug.spotless") version "5.7.0"
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
+    // id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
+    id("com.vanniktech.maven.publish") version "0.13.0"
+    // id("com.github.ben-manes.versions")
+    signing
+    // `maven-publish`
 }
 
 group = "tech.alexib"
@@ -41,9 +43,16 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
 
     // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
 }
 
+// nexusPublishing.repositories.sonatype {
+//     nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+//     snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+//     // stagingProfileId.set(findProperty("SONATYPE_STAGING_PROFILE_ID") as String?)
+//     username.set(getProperty("ossrhUsername"))
+//     password.set(getProperty("ossrhPassword"))
+// }
 ktlint {
     debug.set(true)
     version.set("0.40.0")
@@ -79,7 +88,7 @@ detekt {
 tasks {
     withType<io.gitlab.arturbosch.detekt.Detekt> {
         // Target version of the generated JVM bytecode. It is used for type resolution.
-        this.jvmTarget = "11"
+        this.jvmTarget = "1.8"
     }
     test {
         maxParallelForks = Runtime
@@ -100,10 +109,9 @@ tasks {
 }
 
 afterEvaluate {
-    // We install the hook at the first occasion
+
     tasks["clean"].dependsOn(tasks.getByName("addKtlintFormatGitPreCommitHook"))
 }
-
 spotless {
     isEnforceCheck = false
     kotlin {
@@ -122,37 +130,6 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
-    withJavadocJar()
-    withSourcesJar()
-}
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-
-            from(components["java"])
-            pom {
-                name.set("plaid-kotlin")
-                description.set("Kotlin bindings for Plaid")
-                url.set("https://github.com/ruffcode/plaid-kotlin")
-                artifactId = "plaid-kotlin"
-                licenses {
-                    license {
-                        name.set("Apache 2.0 License")
-                        url.set("https://opensource.org/licenses/Apache-2.0")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("alexiBre")
-                        name.set("Alexi Bre")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/ruffcode/plaid-kotlin.git")
-                    developerConnection.set("scm:git:ssh://github.com/ruffcode/plaid-kotlin.git")
-                    url.set("https://github.com/ruffcode/plaid-kotlin/tree/master")
-                }
-            }
-        }
-    }
+    // withJavadocJar()
+    // withSourcesJar()
 }

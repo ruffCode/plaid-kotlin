@@ -9,6 +9,17 @@
 #### Kotlin bindings for Plaid
 Fully asynchronous - uses Ktor Apache under the hood
 ### Official API Documentation <a href="https://plaid.com/docs/" target="_blank">https://plaid.com/docs </a>
+
+### Installation 
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("tech.alexib:plaid-kotlin:0.0.2")
+}
+```
 ###Configuration
 
 ```
@@ -52,7 +63,7 @@ suspend fun getItem(): Item {
 ```
 ## TODO
 
-- [ ] Publish to MavenCentral
+- [X] Publish to MavenCentral
 - [ ] Documentation
 - [ ] Tests & CodeCov
 - [ ] Automate deploy

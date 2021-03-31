@@ -44,11 +44,6 @@ abstract class AbstractIntegrationTest {
         ignoreUnknownKeys = true
     }
 
-    init {
-        System.setProperty("PLAID_CLIENT_ID", "605d48e9138226000f85ee45")
-        System.setProperty("PLAID_SECRET", "29480e5052a830f59bffebec5d0532")
-    }
-
     @BeforeAll
     @Throws(Exception::class)
     fun setUpClient() {
@@ -67,17 +62,11 @@ abstract class AbstractIntegrationTest {
         )
 
         plaidClient = PlaidClient(apiConfiguration)
-//        apiClient.setPlaidAdapter(ApiClient.BaseUrl.Sandbox)
-//        plaidClient = apiClient.createService(PlaidApi::class.java)
     }
 
     protected fun client(): PlaidClient {
         return plaidClient
     }
-
-//    protected fun apiClient(): ApiClient {
-//        return apiClient
-//    }
 
     @Throws(Exception::class)
     fun assertErrorResponse(
@@ -85,10 +74,6 @@ abstract class AbstractIntegrationTest {
         expectedErrorType: PlaidError.ErrorType,
         expectedErrorCode: String?
     ) {
-//        assertFalse(response.success)
-//        assertTrue(response is ApiResponse<Error>)
-//        assertNotNull(response.errorBody())
-
         when (error) {
             is PlaidError -> {
                 assertNotNull(error.requestId)

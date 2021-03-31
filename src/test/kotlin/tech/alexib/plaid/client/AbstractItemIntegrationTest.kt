@@ -48,7 +48,7 @@ abstract class AbstractItemIntegrationTest : AbstractIntegrationTest() {
     @Throws(Exception::class)
     fun setUpItem() {
         runBlocking {
-            val request: SandboxPublicTokenCreateRequest =
+            val request =
                 SandboxPublicTokenCreateRequest(
                     institutionId = setupItemInstitutionId(),
                     initialProducts = setupItemProducts()
