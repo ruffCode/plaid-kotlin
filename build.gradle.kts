@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "tech.alexib"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -90,7 +90,7 @@ tasks {
 
     withType<KotlinCompile>() {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "1.8"
             useIR = true
             freeCompilerArgs = compilerArgs
             apiVersion = "1.5"
@@ -105,9 +105,12 @@ afterEvaluate {
 }
 
 spotless {
+    isEnforceCheck = false
     kotlin {
-        target("**/*.kt")
-        targetExclude("$buildDir/**/*.kt", "spotless/copyright.kt", "buildSrc")
+        target("src/**/*.kt")
+        targetExclude("$buildDir/**/*.kt")
+        targetExclude("spotless/copyright.kt")
+        targetExclude("buildSrc/buildSrc/**/*.kt")
 
         licenseHeaderFile {
             rootProject.file("spotless/copyright.kt")
@@ -117,7 +120,7 @@ spotless {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(8))
     }
     withJavadocJar()
     withSourcesJar()
@@ -129,7 +132,7 @@ publishing {
             from(components["java"])
             pom {
                 name.set("plaid-kotlin")
-                description.set("A Kotlin port of plaid-java")
+                description.set("Kotlin bindings for Plaid")
                 url.set("https://github.com/ruffcode/plaid-kotlin")
                 artifactId = "plaid-kotlin"
                 licenses {

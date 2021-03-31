@@ -1,4 +1,3 @@
-@file:JvmName("Deps")
 
 object Dependencies {
     object Kotlin {
