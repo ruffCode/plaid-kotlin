@@ -1,24 +1,23 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-
-    id("org.jetbrains.kotlin.jvm") version "1.5.0-M2"
-    kotlin("plugin.serialization") version "1.5.0-M2"
+    id("org.jetbrains.kotlin.jvm") version "1.4.32"
+    kotlin("plugin.serialization") version "1.4.32"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("org.jlleitschuh.gradle.ktlint-idea").version("9.4.1")
     id("org.jetbrains.dokka") version "1.4.30"
     id("com.novoda.static-analysis") version "1.2"
     id("com.diffplug.spotless") version "5.7.0"
-    // id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
-    id("com.vanniktech.maven.publish") version "0.13.0"
-    // id("com.github.ben-manes.versions")
+    // id("com.vanniktech.maven.publish") version "0.13.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
     signing
-    // `maven-publish`
+    `maven-publish`
+    `java-library`
 }
 
 group = "tech.alexib"
-version = "0.0.2"
+version = "0.0.21"
 
 repositories {
     mavenCentral()
@@ -46,13 +45,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
 }
 
-// nexusPublishing.repositories.sonatype {
-//     nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-//     snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-//     // stagingProfileId.set(findProperty("SONATYPE_STAGING_PROFILE_ID") as String?)
-//     username.set(getProperty("ossrhUsername"))
-//     password.set(getProperty("ossrhPassword"))
-// }
 ktlint {
     debug.set(true)
     version.set("0.40.0")
@@ -100,10 +92,9 @@ tasks {
     withType<KotlinCompile>() {
         kotlinOptions {
             jvmTarget = "1.8"
-            useIR = true
             freeCompilerArgs = compilerArgs
-            apiVersion = "1.5"
-            languageVersion = "1.5"
+            apiVersion = "1.4"
+            languageVersion = "1.4"
         }
     }
 }
@@ -111,6 +102,32 @@ tasks {
 afterEvaluate {
 
     tasks["clean"].dependsOn(tasks.getByName("addKtlintFormatGitPreCommitHook"))
+
+    publishing {
+        publications {
+            create<MavenPublication>("mavenJava") {
+                from(components["java"])
+                defaultPom()
+            }
+        }
+    }
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(8))
+        }
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    signing {
+        sign(publishing.publications["mavenJava"])
+
+        val signingKeyId = getProperty("signing.keyId")
+        val signingKey = getProperty("signing.key")
+        val signingPassword = getProperty("signing.password")
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    }
 }
 spotless {
     isEnforceCheck = false
@@ -126,10 +143,7 @@ spotless {
     }
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
-    }
-    // withJavadocJar()
-    // withSourcesJar()
+nexusPublishing.repositories.sonatype {
+    nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+    snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
 }

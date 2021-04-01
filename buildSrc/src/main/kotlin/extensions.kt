@@ -16,7 +16,7 @@ fun MavenPublication.defaultPom() = pom {
     scm {
         connection.set("scm:git:git://github.com/ruffcode/plaid-kotlin.git")
         developerConnection.set("scm:git:ssh://github.com/ruffcode/plaid-kotlin.git")
-        url.set("https://github.com/ruffcode/plaid-kotlin/tree/master")
+        url.set("https://github.com/ruffcode/plaid-kotlin/tree/main")
     }
 
     licenses {
