@@ -7,10 +7,6 @@ on:
         description: Bump Version
         default: 0.0.0
         required: true
-#  workflow_run:
-#    workflows: ["Build + Coverage"]
-#    types:
-#      - completed
 
 jobs:
   build:
@@ -30,6 +26,9 @@ jobs:
           java-version: 1.8
 
       - name: Build with Gradle
+        env:
+          PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
+          PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: ./gradlew build
 
       - name: Identify current version
