@@ -49,17 +49,10 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
-          ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.SIGNING_KEY_ID }}
-          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+          signing_Key: ${{ secrets.SIGNING_KEY }}
+          signing_keyId: ${{ secrets.SIGNING_KEY_ID }}
+          signing_Password: ${{ secrets.SIGNING_PASSWORD }}
         run: ./gradlew publishToSonatype #closeSonatypeStagingRepository
-
-#       - uses: matheusalbino/git-commit@v1.0.1
-#         with:
-#           user-name: ruffCode
-#           user-email: alexi@ruffCode.com
-#           message: bump version ${{ steps.current_version.outputs.value }} --> ${{ github.event.inputs.version }}
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Tag
         uses: negz/create-tag@v1
