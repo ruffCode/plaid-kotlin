@@ -1,9 +1,9 @@
-<img src="https://plaid.com/assets/img/logos/plaid-logo-icon.svg" width="200" alt="Plaid Logo" /> 
+![Plaid Logo](https://plaid.com/assets/img/navbar/logo.svg)
 <br>
 <a href="https://twitter.com/ruffCode" target="_blank">
 <img alt="Twitter: ruffCode" src="https://img.shields.io/twitter/follow/ruffCode.svg?style=social" />
 </a>
-
+[![Maven Central](https://img.shields.io/maven-central/v/tech.alexib/plaid-kotlin.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22tech.alexib%22%20AND%20a:%22plaid-kotlin%22)
 
 # Plaid-Kotlin
 #### Kotlin bindings for Plaid
@@ -11,18 +11,29 @@ Fully asynchronous - uses Ktor Apache under the hood
 ### Official API Documentation <a href="https://plaid.com/docs/" target="_blank">https://plaid.com/docs </a>
 
 ### Installation 
-```
+```kotlin
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("tech.alexib:plaid-kotlin:0.0.2")
+    implementation("tech.alexib:plaid-kotlin:0.0.21")
 }
 ```
-###Configuration
+Or to use a snapshot build
+```kotlin
+repositories{
+    //...
+    maven("https://jitpack.io")
+}
 
+dependencies{
+    implementation("com.github.ruffCode:plaid-kotlin:-SNAPSHOT")
+}
 ```
+### Configuration
+
+```kotlin
    val plaidApiConfiguration = PlaidApiConfiguration(
         ClientId(plaidConfig.clientId),
         Secret(plaidConfig.secret),
@@ -33,8 +44,8 @@ dependencies {
     val plaidClient = PlaidClient(plaidApiConfiguration)
 ```
 
-###Basic Usage
-```
+### Basic Usage
+```kotlin
 suspend fun getItem(): Item {
 
     val request: SandboxPublicTokenCreateRequest =

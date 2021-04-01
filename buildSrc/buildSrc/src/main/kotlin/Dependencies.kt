@@ -1,7 +1,7 @@
 
 object Dependencies {
     object Kotlin {
-        private const val version = "1.5.0-M2"
+        private const val version = "1.4.32"
         private fun item(library: String) = "org.jetbrains.kotlin:kotlin-$library:$version"
 
         val stdlib = item("stdlib")
