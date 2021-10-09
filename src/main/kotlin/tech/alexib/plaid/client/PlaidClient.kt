@@ -409,16 +409,16 @@ class PlaidClient constructor(
 
     suspend fun bankTransferBalanceGet(bankTransferBalanceGetRequest: BankTransferBalanceGetRequest):
         BankTransferBalanceGetResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/bank_transfer/balance/get",
-            )
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/bank_transfer/balance/get",
+        )
 
-            return request(
-                localVariableConfig,
-                bankTransferBalanceGetRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            bankTransferBalanceGetRequest,
+        )
+    }
 
     /**
      * Cancel a bank transfer
@@ -469,17 +469,17 @@ class PlaidClient constructor(
 
     suspend fun bankTransferEventList(bankTransferEventListRequest: BankTransferEventListRequest):
         BankTransferEventListResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/bank_transfer/event/list",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/bank_transfer/event/list",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                bankTransferEventListRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            bankTransferEventListRequest,
+        )
+    }
 
     /**
      * Sync bank transfer events
@@ -490,17 +490,17 @@ class PlaidClient constructor(
 
     suspend fun bankTransferEventSync(bankTransferEventSyncRequest: BankTransferEventSyncRequest):
         BankTransferEventSyncResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/bank_transfer/event/sync",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/bank_transfer/event/sync",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                bankTransferEventSyncRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            bankTransferEventSyncRequest,
+        )
+    }
 
     /**
      * Retrieve a bank transfer
@@ -636,16 +636,16 @@ class PlaidClient constructor(
 
     suspend fun depositSwitchCreate(depositSwitchCreateRequest: DepositSwitchCreateRequest):
         DepositSwitchCreateResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/deposit_switch/create",
-            )
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/deposit_switch/create",
+        )
 
-            return request(
-                localVariableConfig,
-                depositSwitchCreateRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            depositSwitchCreateRequest,
+        )
+    }
 
     /**
      * Retrieve a deposit switch
@@ -834,17 +834,17 @@ class PlaidClient constructor(
 
     suspend fun institutionsGetById(institutionsGetByIdRequest: InstitutionsGetByIdRequest):
         InstitutionsGetByIdResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/institutions/get_by_id",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/institutions/get_by_id",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                institutionsGetByIdRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            institutionsGetByIdRequest,
+        )
+    }
 
     /**
      * Search institutions
@@ -875,17 +875,17 @@ class PlaidClient constructor(
 
     suspend fun investmentsHoldingsGet(investmentsHoldingsGetRequest: InvestmentsHoldingsGetRequest):
         InvestmentsHoldingsGetResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/investments/holdings/get",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/investments/holdings/get",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                investmentsHoldingsGetRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            investmentsHoldingsGetRequest,
+        )
+    }
 
     /**
      * Get investment transactions
@@ -941,13 +941,13 @@ class PlaidClient constructor(
         "Note: As of July 2020, the &#x60;/item/public_token/create&#x60; endpoint is deprecated.",
         replaceWith = ReplaceWith(
             """Instead, use &#x60;/link/token/create&#x60; with an &#x60;access_token&#x60;
-                to create a Link token for use with [update mode](/docs/link/update-mode).  If you need your user to 
-                take action to restore or resolve an error associated with an Item, generate a public token with the 
+                to create a Link token for use with [update mode](/docs/link/update-mode).  If you need your user to
+                take action to restore or resolve an error associated with an Item, generate a public token with the
                 &#x60;/item/public_token/create&#x60; endpoint and then initialize Link with that &#x60;
-                public_token&#x60;.  A &#x60;public_token&#x60; is one-time use and expires after 30 minutes. 
-                You use a &#x60;public_token&#x60; to initialize Link in [update mode](/docs/link/update-mode) for a 
-                particular Item. You can generate a &#x60;public_token&#x60; for an Item even if you did not use Link 
-                to create the Item originally.  The &#x60;/item/public_token/create&#x60; endpoint is **not** used to 
+                public_token&#x60;.  A &#x60;public_token&#x60; is one-time use and expires after 30 minutes.
+                You use a &#x60;public_token&#x60; to initialize Link in [update mode](/docs/link/update-mode) for a
+                particular Item. You can generate a &#x60;public_token&#x60; for an Item even if you did not use Link
+                to create the Item originally.  The &#x60;/item/public_token/create&#x60; endpoint is **not** used to
                 create your initial &#x60;public_token&#x60;. If you have not already received an &#x60;access_token
                 &#x60; for a specific Item, use Link to obtain your &#x60;public_token&#x60; instead.
                  See the [Quickstart](/docs/quickstart) for more information."""
@@ -956,17 +956,17 @@ class PlaidClient constructor(
 
     suspend fun itemCreatePublicToken(itemPublicTokenCreateRequest: ItemPublicTokenCreateRequest):
         ItemPublicTokenCreateResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/item/public_token/create",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/item/public_token/create",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                itemPublicTokenCreateRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            itemPublicTokenCreateRequest,
+        )
+    }
 
     /**
      * Retrieve an Item
@@ -1300,16 +1300,16 @@ class PlaidClient constructor(
 
     suspend fun processorBalanceGet(processorBalanceGetRequest: ProcessorBalanceGetRequest):
         ProcessorBalanceGetResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/processor/balance/get",
-            )
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/processor/balance/get",
+        )
 
-            return request(
-                localVariableConfig,
-                processorBalanceGetRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            processorBalanceGetRequest,
+        )
+    }
 
     /**
      * Retrieve Identity data
@@ -1320,16 +1320,16 @@ class PlaidClient constructor(
 
     suspend fun processorIdentityGet(processorIdentityGetRequest: ProcessorIdentityGetRequest):
         ProcessorIdentityGetResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/processor/identity/get",
-            )
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/processor/identity/get",
+        )
 
-            return request(
-                localVariableConfig,
-                processorIdentityGetRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            processorIdentityGetRequest,
+        )
+    }
 
     /**
      * Create Stripe bank account token
@@ -1361,16 +1361,16 @@ class PlaidClient constructor(
 
     suspend fun processorTokenCreate(processorTokenCreateRequest: ProcessorTokenCreateRequest):
         ProcessorTokenCreateResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/processor/token/create",
-            )
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/processor/token/create",
+        )
 
-            return request(
-                localVariableConfig,
-                processorTokenCreateRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            processorTokenCreateRequest,
+        )
+    }
 
     /**
      * Simulate a bank transfer event in Sandbox
@@ -1402,17 +1402,17 @@ class PlaidClient constructor(
 
     suspend fun sandboxItemFireWebhook(sandboxItemFireWebhookRequest: SandboxItemFireWebhookRequest):
         SandboxItemFireWebhookResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/sandbox/item/fire_webhook",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/sandbox/item/fire_webhook",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                sandboxItemFireWebhookRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            sandboxItemFireWebhookRequest,
+        )
+    }
 
     /**
      * Force a Sandbox Item into an error state
@@ -1423,17 +1423,17 @@ class PlaidClient constructor(
 
     suspend fun sandboxItemResetLogin(sandboxItemResetLoginRequest: SandboxItemResetLoginRequest):
         SandboxItemResetLoginResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/sandbox/item/reset_login",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/sandbox/item/reset_login",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                sandboxItemResetLoginRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            sandboxItemResetLoginRequest,
+        )
+    }
 
     /**
      * Set verification status for Sandbox account
@@ -1530,17 +1530,17 @@ class PlaidClient constructor(
 
     suspend fun transactionsRefresh(transactionsRefreshRequest: TransactionsRefreshRequest):
         TransactionsRefreshResponse {
-            val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/transactions/refresh",
+        val localVariableConfig = RequestConfig(
+            RequestMethod.POST,
+            "/transactions/refresh",
 
-            )
+        )
 
-            return request(
-                localVariableConfig,
-                transactionsRefreshRequest,
-            )
-        }
+        return request(
+            localVariableConfig,
+            transactionsRefreshRequest,
+        )
+    }
 
     /**
      * Get webhook verification key

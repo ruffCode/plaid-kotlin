@@ -22,17 +22,20 @@ data class PlaidApiConfiguration(
     val plaidVersion: PlaidVersion = PlaidVersion()
 )
 
-inline class ClientId(val value: String) {
+@JvmInline
+value class ClientId(val value: String) {
     init {
         require(value.isNotEmpty()) { "ClientId must not be blank" }
     }
 }
 
-inline class Secret(val value: String) {
+@JvmInline
+value class Secret(val value: String) {
     init {
         require(value.isNotEmpty()) { "Secret must not be blank" }
     }
 }
 
 @Suppress("MagicNumber")
-inline class PlaidVersion(val value: String = "2020-09-14")
+@JvmInline
+value class PlaidVersion(val value: String = "2020-09-14")
