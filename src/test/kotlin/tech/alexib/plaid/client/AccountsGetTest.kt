@@ -44,7 +44,8 @@ class AccountsGetTest : AbstractItemIntegrationTest() {
                 .accountsGet(request)
 
             // item should be the same one we created
-            assertItemEquals(getItem()!!, response.item)
+            Assertions.assertEquals(getItem(), response.item)
+            // assertItemEquals(getItem()!!, response.item)
 
             // sandbox should return expected accounts
             val accounts: List<AccountBase> = response.accounts

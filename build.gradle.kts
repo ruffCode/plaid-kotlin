@@ -1,33 +1,32 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.4.32"
-    kotlin("plugin.serialization") version "1.4.32"
-    id("io.gitlab.arturbosch.detekt") version "1.16.0"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
-    id("org.jlleitschuh.gradle.ktlint-idea").version("9.4.1")
+    val kotlinVersion = "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
+    id("io.gitlab.arturbosch.detekt") version "1.18.1"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("org.jlleitschuh.gradle.ktlint-idea").version("10.2.0")
     id("org.jetbrains.dokka") version "1.4.30"
-    id("com.novoda.static-analysis") version "1.2"
-    id("com.diffplug.spotless") version "5.7.0"
+    id("com.diffplug.spotless") version "5.15.0"
     // id("com.vanniktech.maven.publish") version "0.13.0"
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     signing
     `maven-publish`
     `java-library`
 }
 
 group = "tech.alexib"
-version = "0.0.21"
 
 repositories {
     mavenCentral()
-    jcenter {
-        content {
-            // Only download the 'kotlinx-html-jvm' module from JCenter, but nothing else.
-            // detekt needs 'kotlinx-html-jvm' for the HTML report.
-            includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
-        }
-    }
+    // jcenter {
+    //     content {
+    //         // Only download the 'kotlinx-html-jvm' module from JCenter, but nothing else.
+    //         // detekt needs 'kotlinx-html-jvm' for the HTML report.
+    //         includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
+    //     }
+    // }
 }
 
 dependencies {
@@ -37,20 +36,22 @@ dependencies {
     implementation(Dependencies.Ktor.clientCore)
     implementation(Dependencies.Ktor.serialization)
     implementation(Dependencies.Ktor.clientApache)
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.15.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.18.1")
     // Use JUnit Jupiter API for testing.
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
 
     // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation("app.cash.turbine:turbine:0.6.1")
 }
 
 ktlint {
     debug.set(true)
-    version.set("0.40.0")
+    version.set("0.42.1")
     verbose.set(true)
     android.set(false)
     outputToConsole.set(true)
+    outputColorName.set("BLUE")
     ignoreFailures.set(true)
     enableExperimentalRules.set(true)
     filter {
@@ -89,12 +90,17 @@ tasks {
         useJUnitPlatform()
     }
 
-    withType<KotlinCompile>() {
+    withType<KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = compilerArgs
-            apiVersion = "1.4"
-            languageVersion = "1.4"
+            freeCompilerArgs = freeCompilerArgs + listOf(
+                "-Xjsr305=strict",
+                "-Xopt-in=kotlin.Experimental",
+                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xjvm-default=enable",
+                "-Xopt-in=kotlin.time.ExperimentalTime",
+                "-Xopt-in=io.ktor.utils.io.core.ExperimentalIoApi"
+            )
         }
     }
 }
@@ -135,11 +141,14 @@ spotless {
         target("src/**/*.kt")
         targetExclude("$buildDir/**/*.kt")
         targetExclude("spotless/copyright.kt")
+        targetExclude("**/generated/**")
         targetExclude("buildSrc/buildSrc/**/*.kt")
 
         licenseHeaderFile {
             rootProject.file("spotless/copyright.kt")
         }
+        trimTrailingWhitespace()
+        endWithNewline()
     }
 }
 

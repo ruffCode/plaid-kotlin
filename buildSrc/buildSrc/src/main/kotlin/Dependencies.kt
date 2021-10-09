@@ -1,7 +1,7 @@
 
 object Dependencies {
     object Kotlin {
-        private const val version = "1.4.32"
+        private const val version = "1.5.31"
         private fun item(library: String) = "org.jetbrains.kotlin:kotlin-$library:$version"
 
         val stdlib = item("stdlib")
@@ -17,14 +17,14 @@ object Dependencies {
     object KotlinX {
         private fun item(module: String, version: String) = "org.jetbrains.kotlinx:kotlinx-${module}:${version}"
 
-        val coroutinesCore = item("coroutines-core", "1.4.3")
-        val serializationJson = item("serialization-json", "1.1.0-RC")
-        val datetime = item("datetime", "0.1.1")
+        val coroutinesCore = item("coroutines-core", "1.5.2")
+        val serializationJson = item("serialization-json", "1.3.0")
+        val datetime = item("datetime", "0.3.0")
     }
 
 
     object Ktor {
-        private const val version = "1.5.2"
+        private const val version = "1.6.4"
         private fun item(library: String) = "io.ktor:ktor-$library:$version"
         val clientCore = item("client-core")
         val clientApache = item("client-apache")
@@ -36,17 +36,11 @@ object Dependencies {
 
 
 
-    const val detektVersion = "1.14.2"
-    const val nexusPublishPluginVersion = "1.0.0"
+    const val detektVersion = "1.18.1"
+    const val nexusPublishPluginVersion = "1.1.0"
     const val dokkaVersion = "1.4.30"
 }
 
 
 
-val compilerArgs = listOf(
-    "-Xjsr305=strict", "-Xuse-experimental=kotlin.Experimental",
-    "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-    "-Xinline-classes",
-    "-Xjvm-default=enable",
-    "-Xuse-experimental=kotlin.time.ExperimentalTime"
-)
+

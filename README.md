@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation("tech.alexib:plaid-kotlin:0.0.21")
+    implementation("tech.alexib:plaid-kotlin:0.0.22")
 }
 ```
 Or to use a snapshot build

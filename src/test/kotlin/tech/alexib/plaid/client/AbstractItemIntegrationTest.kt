@@ -39,6 +39,7 @@ import tech.alexib.plaid.client.model.SandboxPublicTokenCreateResponse
  * Subclasses must provide the institution and products desired by implementing.
  * [.setupItemProducts] and [.setupItemInstitutionId]
  */
+@Suppress("LongParameterList")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AbstractItemIntegrationTest : AbstractIntegrationTest() {
     private var exchangeTokenResponse: ItemPublicTokenExchangeResponse? = null
